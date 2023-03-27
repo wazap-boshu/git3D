@@ -5,10 +5,15 @@ import styles from '@/styles/Home.module.css'
 import { Header } from '@/components/header'
 import { Box } from '@mui/system'
 import { ImageCard } from '@/components/image-card'
+import { ThreeDimentionalModel } from '@/model/three-dimentional-model'
+import { Project } from '@/model/project'
+import { ThreeDimentionalModelCard } from '@/components/model-card'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+
+  const threeDModel = new ThreeDimentionalModel(new Project("project1", "this is the first"),  "name")
   return (
     <>
       <Head>
@@ -21,11 +26,8 @@ export default function Home() {
           p: 1,
         }}
       >
-        <ImageCard
-          src={""}
-          title={"demo"}
-          description={"this is a first model for Japanese"}
-          buttonText={"download.."}
+        <ThreeDimentionalModelCard
+          threeDimentionalModel={threeDModel}
         />
 
       </Box>
