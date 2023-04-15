@@ -12,6 +12,10 @@ import { Button, Typography } from '@mui/material'
 import { MuiFileInput } from 'mui-file-input';
 import { useEffect, useRef, useState } from 'react'
 import { PreviewModal } from '@/components/modal'
+import { useSession } from 'next-auth/react'
+import Router from 'next/router'
+import { NextPage } from 'next'
+import { LogOutButton } from '@/components/log-out-button'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,11 +23,6 @@ export default function Home() {
 
   console.log(process.env.NEXT_PUBLIC_HOGE)
   const threeDModel = new ThreeDimentionalModel(new Project("project1", "this is the first"), "name")
-
-  const handleClickUpload = () => {
-    // アップロード用のプレビュー画面を表示する
-
-  }
 
   const [file, setFile] = useState<File | null | undefined>();
 
@@ -64,6 +63,7 @@ export default function Home() {
           onChange={(file) => { handleChangeFile(file) }}
         />
       </Button>
+      <LogOutButton />
       <input
         hidden
         ref={inputRef}

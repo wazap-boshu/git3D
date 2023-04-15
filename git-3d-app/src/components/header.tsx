@@ -7,7 +7,10 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { signOut, useSession } from 'next-auth/react';
+import { Session } from 'next-auth';
+import { Button } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
