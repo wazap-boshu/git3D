@@ -24,11 +24,6 @@ export default function Home() {
   console.log(process.env.NEXT_PUBLIC_HOGE)
   const threeDModel = new ThreeDimentionalModel(new Project("project1", "this is the first"), "name")
 
-  const handleClickUpload = () => {
-    // アップロード用のプレビュー画面を表示する
-
-  }
-
   const [file, setFile] = useState<File | null | undefined>();
 
   // モーダル表示状態
@@ -49,8 +44,6 @@ export default function Home() {
   const handleClose = () => {
     setOpenModal(false);
   }
-
-  const { data: session } = useSession();
 
   return (
     <>
