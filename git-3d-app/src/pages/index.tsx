@@ -12,6 +12,10 @@ import { Button, Typography } from '@mui/material'
 import { MuiFileInput } from 'mui-file-input';
 import { useEffect, useRef, useState } from 'react'
 import { PreviewModal } from '@/components/modal'
+import { useSession } from 'next-auth/react'
+import Router from 'next/router'
+import { NextPage } from 'next'
+import { LogOutButton } from '@/components/log-out-button'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -46,6 +50,8 @@ export default function Home() {
     setOpenModal(false);
   }
 
+  const { data: session } = useSession();
+
   return (
     <>
       <Head>
@@ -64,6 +70,7 @@ export default function Home() {
           onChange={(file) => { handleChangeFile(file) }}
         />
       </Button>
+      <LogOutButton />
       <input
         hidden
         ref={inputRef}
