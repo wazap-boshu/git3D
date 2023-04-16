@@ -22,8 +22,6 @@ const style = {
 
 export const LoginModal: FC<LoginModalProps> = (props) => {
 
-  console.log("session1")
-
   const { data: session } = useSession();
 
   return (

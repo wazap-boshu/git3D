@@ -1,20 +1,25 @@
-import { Project } from "./project";
+import { Id } from "@/value-object/id";
+import { ProjectEntity } from "./project";
 
-export class ThreeDimentionalModel {
+export class ThreeDimentionalEntity {
 
   // MARK: propertieis
 
-  private project: Project;
+  id: Id;
 
-  private name: string;
+  project: ProjectEntity;
+
+  name: string;
 
   /**
    * コンストラクタ
    */
   constructor(
-    project: Project,
+    id: Id,
+    project: ProjectEntity,
     name: string,
   ) {
+    this.id = id;
     this.project = project;
     this.name = name;
   }
