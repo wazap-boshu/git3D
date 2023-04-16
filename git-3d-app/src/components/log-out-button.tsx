@@ -7,7 +7,6 @@ interface LogOutButtonProps { }
 export const LogOutButton: FC<LogOutButtonProps> = (props) => {
 
   const handleClick = () => {
-    console.log("log out")
     signOut();
   }
 

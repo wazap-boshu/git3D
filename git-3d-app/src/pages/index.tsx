@@ -1,33 +1,30 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
 import { Header } from '@/components/header'
 import { Box } from '@mui/system'
-import { ImageCard } from '@/components/image-card'
-import { ThreeDimentionalModel } from '@/model/three-dimentional-model'
-import { Project } from '@/model/project'
-import { ThreeDimentionalModelCard } from '@/components/model-card'
-import { Button, Typography } from '@mui/material'
-import { MuiFileInput } from 'mui-file-input';
+import { ThreeDimentionalEntity } from '@/entities/three-dimentional-model'
+import { ProjectEntity } from '@/entities/project'
+import { ThreeDimentionalEntityCard } from '@/components/model-card'
+import { Button } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import { PreviewModal } from '@/components/modal'
-import { useSession } from 'next-auth/react'
-import Router from 'next/router'
-import { NextPage } from 'next'
 import { LogOutButton } from '@/components/log-out-button'
+import { ThreeDimentionalEntityRepository } from '@/repository/three-dimentional-model-repositoy'
+import { Id } from '../value-object/id';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-  console.log(process.env.NEXT_PUBLIC_HOGE)
-  const threeDModel = new ThreeDimentionalModel(new Project("project1", "this is the first"), "name")
+  const threeDModel = new ThreeDimentionalEntity(new Id('aaaa'), new ProjectEntity(new Id("id"), "project1", "this is the first"), "name")
 
   const [file, setFile] = useState<File | null | undefined>();
 
   // モーダル表示状態
   const [open, setOpenModal] = useState<boolean>(false);
+
+  // 3Dモデル一覧
+  const [threeDModels, setThreeDModels] = useState<ThreeDimentionalEntity[]>([]);
 
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event?.target?.files?.item(0);
@@ -35,15 +32,23 @@ export default function Home() {
     setOpenModal(Boolean(file));
   }
 
-  const inputRef = useRef(null);
-
-  const handleChange = () => {
-
-  }
+  useEffect(() => {
+    const initData = async () => {
+      const threeDimentionalEntities = await ThreeDimentionalEntityRepository.shared.find();
+      setThreeDModels(threeDimentionalEntities);
+      console.log(`REsult ${JSON.stringify(threeDimentionalEntities)}`)
+    }
+    initData();
+  }, []);
 
   const handleClose = () => {
     setOpenModal(false);
   }
+
+  const handleClick = async () => {
+    // await ThreeDimentionalEntityRepository.shared.save(new ThreeDimentionalEntity(new Id('id'), new ProjectEntity('id', 'name', ''), 'testname'))
+  }
+
 
   return (
     <>
@@ -52,6 +57,13 @@ export default function Home() {
           title={"3D Knowledge"}
         />
       </Head>
+      <Button
+        variant="contained"
+        component="label"
+        onClick={handleClick}
+      >
+        button
+      </Button>
       <Button
         variant="contained"
         component="label"
@@ -64,20 +76,18 @@ export default function Home() {
         />
       </Button>
       <LogOutButton />
-      <input
-        hidden
-        ref={inputRef}
-        type="file"
-        onChange={handleChange}
-      />
       <Box
         sx={{
           p: 1,
         }}
       >
-        <ThreeDimentionalModelCard
-          threeDimentionalModel={threeDModel}
-        />
+        {threeDModels.map(threeDModel => {
+          return (
+            <ThreeDimentionalEntityCard
+              threeDimentionalEntity={threeDModel}
+            />
+          )
+        })}
       </Box>
 
       {/* モーダル */}

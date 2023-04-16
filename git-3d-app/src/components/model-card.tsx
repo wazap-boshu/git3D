@@ -1,19 +1,19 @@
 import { FC } from "react";
-import { ThreeDimentionalModel } from "../model/three-dimentional-model";
+import { ThreeDimentionalEntity } from "../entities/three-dimentional-model";
 import {ImageCard} from "./image-card";
 
-interface ThreeDimentionalModelCardProps {
-  threeDimentionalModel: ThreeDimentionalModel;
+interface ThreeDimentionalEntityCardProps {
+  threeDimentionalEntity: ThreeDimentionalEntity;
 }
 
-export const ThreeDimentionalModelCard: FC<ThreeDimentionalModelCardProps> = (props) => {
-  const { threeDimentionalModel } = props;
+export const ThreeDimentionalEntityCard: FC<ThreeDimentionalEntityCardProps> = (props) => {
+  const { threeDimentionalEntity } = props;
 
-  const src = threeDimentionalModel.imageSource();
+  const src = threeDimentionalEntity.imageSource();
 
-  const title = threeDimentionalModel.title();
+  const title = threeDimentionalEntity.title();
 
-  const description = threeDimentionalModel.projectDescription();
+  const description = threeDimentionalEntity.projectDescription();
 
   const buttonText = "DOWNLOAD";
 
